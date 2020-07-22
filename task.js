@@ -17,40 +17,27 @@ function createMarkUp(data){
         img.setAttribute('src', item.preview); 
         img.setAttribute('data-source', item.original);
         img.setAttribute('alt', item.description);
-        
         link.append(img);
         itemRef.append(link);
-        
-        gallery.append(itemRef);
+        return itemRef;
     });
 }
-
-console.log(createMarkUp(cards));
-gallery.append(...cards);
-console.log(gallery);
-
+const items = createMarkUp(cards);
+gallery.append(...items);
 
 gallery.addEventListener('click', onPictureClick);
+closeModalBtn.addEventListener('click', onCloseModal);
 
 function onPictureClick(event){
     event.preventDefault();
     if(event.target.nodeName !== 'IMG'){
         return;
-    }else{
-        onOpenModal(event)
     }
-}
-
-
-function onOpenModal(event){
     openModal.classList.add('is-open');
     lightboxImg.setAttribute('src', event.target.dataset.source);
     lightboxImg.setAttribute('alt', event.target.alt);
-    
 }
 
-
-closeModalBtn.addEventListener('click', onCloseModal);
 function onCloseModal(){
     openModal.classList.remove('is-open');
     lightboxImg.setAttribute('src', '');
